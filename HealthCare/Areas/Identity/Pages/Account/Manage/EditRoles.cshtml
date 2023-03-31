@@ -1,0 +1,44 @@
+﻿@page "{id}"
+@model EditRoleModel
+
+@{
+    ViewData["Title"] = "Edit User Roles";
+}
+
+<h1 style="margin-bottom: 45px;text-align: center;">@ViewData["Title"]</h1>
+
+
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Role</th>
+                <th>Assigned</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var role in Model.Roles)
+            {
+                <tr>
+                    <td>@role.Text</td>
+                    <td>
+                        <input type="checkbox" name="selectedRoles" value="@role.Text"
+                           @(Model.UserRoles.Contains(role.Text) ? "checked" : "")>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="form-group" style="
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin: 10;
+">
+        <button type="submit" class="btn btn-primary" style="margin-right: 16px;">
+            Save
+        </button>
+        <a asp-page="./Userlist">Back to List</a>
+    </div>
+</form>

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ApplicationUser>
+
+<h1 style="margin-bottom: 45px;text-align: center;">Athlete Information</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Height</th>
+            <th>Current Weight</th>
+            <th>Target Weight</th>
+            <th>Health Diary</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.Height</td>
+                <td>@user.CurrentWeight</td>
+                <td>@user.TargetWeight</td>
+                <td>
+                    <a asp-action="AthleteInformation" asp-route-id="@user?.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

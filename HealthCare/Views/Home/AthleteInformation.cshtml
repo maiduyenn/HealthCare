@@ -1,0 +1,127 @@
+﻿@using HealthCare.Data;
+@model AthleteInformation
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = ViewData["user"] as ApplicationUser;
+    var totalCaloriesIntake = 0;
+    var totalCalories = 0;
+    var burnCalories = 0;
+    var totalCaloriesMan = 66 + (13.7 * user.CurrentWeight) + (5 * user.Height) - (6.8 * 25) * 1.2;
+    var totalCaloriesWomen = 655.1 + (9.6 * user.CurrentWeight) + (1.8 * user.Height) - (4.7 * 25) * 1.2;
+
+    if (user.CurrentWeight > user.TargetWeight) //lose weight
+    {
+        if (user.Gender == Gender.Male)
+        {
+            totalCalories = Convert.ToInt32(totalCaloriesMan) - 250;
+            //totalCalories = 1500;
+        }
+        else
+        {
+            totalCalories = Convert.ToInt32(totalCaloriesWomen) - 250;
+        }
+    }
+    if (user.CurrentWeight < user.TargetWeight) //gain weight
+    {
+        if (user.Gender == Gender.Male)
+        {
+            totalCalories = Convert.ToInt32(totalCaloriesMan) + 250;
+            //totalCalories = 2000;
+        }
+        else
+        {
+            totalCalories = Convert.ToInt32(totalCaloriesWomen) + 250;
+        }
+    }
+    if (user.CurrentWeight == user.TargetWeight)
+    {
+        if (user.Gender == Gender.Male)
+        {
+            totalCalories = Convert.ToInt32(totalCaloriesMan);
+            //totalCalories = 1700;
+        }
+        else
+        {
+            totalCalories = Convert.ToInt32(totalCaloriesWomen);
+            //totalCalories = 1500;
+        }
+    }
+
+}
+
+<h1 style="margin-bottom: 45px;text-align: center;">
+    Daily Intake
+</h1>
+
+
+<div class="d-flex justify-content-center align-items-center h-100 mt-3">
+    <div class="col-md-6">
+        <div class="row">
+            <dt class="col-sm-6">Date/Time</dt>
+            <dd class="col-sm-6">. @Model.CreateTime</dd>
+        </div><div class="row">
+            <dt class="col-sm-6">Athlete ID</dt>
+            <dd class="col-sm-6">. @Model.AthleteId</dd>
+        </div>
+        <div class="row">
+            <dt class="col-sm-6">Water Intake</dt>
+            <dd class="col-sm-6">. @Model.WaterIntake ml</dd>
+        </div>
+        <div class="row">
+            <dt class="col-sm-6">Food Intake</dt>
+            <dd class="col-sm-6">
+                @foreach (var meal in Model.FoodIntake)
+                {
+                    <div style="color: #039f18;font-size: 17px;font-weight: 600;">@meal.Type</div>
+                    foreach (var food in meal.MealFoods)
+                    {
+                        totalCaloriesIntake += food.Food.Calories;
+                        <div style="display:flex">. @food.Food.Name - @food.Food.Calories kcal <button data-id="@food.Id" class="delete">X</button></div>
+                    }
+
+                }
+            </dd>
+        </div>
+        <div class="row">
+            <dt class="col-sm-6">Physical Activities</dt>
+            <dd>
+                @foreach (var activity in Model.Activities)
+                {
+                    burnCalories += Int32.Parse(activity.Activity.BurnedCalories);
+                    <div style="display:flex">. @activity.Activity.Type - @activity.Activity.BurnedCalories kcal <button data-id="@activity.Id" class="delete-act">X</button></div>
+                }
+            </dd>
+        </div>
+        <div class="row">
+            <dt class="col-sm-6">Base Goal</dt>
+            <dd class="col-sm-6">@totalCalories</dd>
+        </div>
+        <div class="row">
+            <dt class="col-sm-6">Remaining Calories</dt>
+            <dd class="col-sm-6">@(totalCalories - totalCaloriesIntake + burnCalories)</dd>
+        </div>
+        <p>Remaining = Goal - Food + Exercise</p>
+        <p style="font-size:13px; color: #ff0000;">Your total calorie intake is tailored to help you reach your weight goals. Depending on whether you want to gain or lose weight, the plan will help you achieve a safe and sustainable weight change of 1.5kg to 2kg per month</p>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(".delete").on("click", function(x){
+            let Id = $(this).attr("data-id");
+            $.post("Delete/" + Id, function (data) {
+                window.location.href = '/Home/AthleteInformation';
+            });
+        })
+
+        $(".delete-act").on("click", function (x) {
+            let Id = $(this).attr("data-id");
+            $.post("DeleteActivity/" + Id, function (data) {
+                window.location.href = '/Home/AthleteInformation';
+            });
+        })
+
+    </script>
+}

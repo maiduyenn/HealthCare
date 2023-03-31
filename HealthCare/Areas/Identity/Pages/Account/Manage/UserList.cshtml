@@ -1,0 +1,32 @@
+﻿@page
+@model HealthCare.Areas.Identity.Pages.Account.Manage.UserListModel
+@using HealthCare.Models;
+@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<ApplicationUser> _userManager
+@{
+    <h1 style="margin-bottom: 45px;text-align: center;">User Managerment</h1>
+    <div class="d-flex justify-content-center align-items-center h-100">
+    <table>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.ApplicationUsers)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                    <td>@(String.Join(", ", _userManager.GetRolesAsync(user).Result.ToArray()))</td>
+                <td><a href="./EditRoles/@user.Id">Edit Roles</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+    </div>
+}

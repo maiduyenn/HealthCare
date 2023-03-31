@@ -1,0 +1,28 @@
+﻿@model ApplicationUser
+
+<h1 style="margin-bottom: 45px;text-align: center;">User Information</h1>
+
+<table >
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Height</th>
+            <th>Current Weight</th>
+            <th>Target Weight</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.UserName</td>
+            <td>@Model.Email</td>
+            <td>@Model.Height</td>
+            <td>@Model.CurrentWeight</td>
+            <td>@Model.TargetWeight</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

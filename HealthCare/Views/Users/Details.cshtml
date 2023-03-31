@@ -1,0 +1,38 @@
+﻿@model ApplicationUser
+
+<h2 style="margin-bottom: 45px;text-align: center;">User Information</h2>
+
+<div class="d-flex justify-content-center align-items-center h-100">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-6">Username:</dt>
+            <dd class="col-sm-6">@Model.UserName</dd>
+            <dt class="col-sm-6">Email:</dt>
+            <dd class="col-sm-6">@Model.Email</dd>
+            <dt class="col-sm-6">Height (in cm):</dt>
+            <dd class="col-sm-6">@Model.Height</dd>
+            <dt class="col-sm-6">Gender:</dt>
+            <dd class="col-sm-6">@Model.Gender</dd>
+            <dt class="col-sm-6">Current Weight (in kg):</dt>
+            <dd class="col-sm-6">@Model.CurrentWeight</dd>
+            <dt class="col-sm-6">Target Weight (in kg):</dt>
+            <dd class="col-sm-6">@Model.TargetWeight</dd>
+            <dt class="col-sm-6">Role:</dt>
+            <dd class="col-sm-6">@Model.Role</dd>
+            <dt class="col-sm-6">Is Coach?</dt>
+            <dd class="col-sm-6">@Model.IsCoach</dd>
+        </dl>
+    </div>
+    @if (Model.Athletes != null)
+    {
+        <div class="col-md-8">
+            <h3>Athletes</h3>
+            <ul>
+                @foreach (var athlete in Model.Athletes)
+                {
+                    <li>@athlete.UserName</li>
+                }
+            </ul>
+        </div>
+    }
+</div>

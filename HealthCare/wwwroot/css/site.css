@@ -1,0 +1,86 @@
+body {
+    background-color: #eff3f4;
+}
+.container {
+    background-color: white;
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 5px 3px 12px 6px #8888;
+}
+
+.form-check {
+    margin-top: 10px;
+    margin-left:15px
+}
+.search_select_box {
+    max-width: 400px;
+    margin-top: 10px;
+}
+.search_select_box select{
+    width: 100%;
+    padding: 5px;
+    font-size: 20px;
+}
+ .search_select_box button {
+        background-color: #b9ffb8;
+    }
+.dropdown-item.active {
+    color: black;
+    background-color: #68ff5f;
+} 
+.cup{
+    width:50px;
+}
+.drinkWater{
+    display:flex;
+}
+.add {
+    background-color: #2196f3;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #2196f3;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+#waterVolume{
+    font-size:20px;
+    color: gray;
+    font-weight:500;
+}
+.waterItem {
+    margin-right: 50px;
+}
+.btn-danger{
+    margin-top: 8px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    padding: 10px;
+    text-align: center;
+}
+.btn-primary {
+    background-color: #82be61;
+    border-color: darkseagreen;
+}
+.btn-primary:hover {
+        color: #fff;
+        background-color: #6ebc42;
+}
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+.delete, .delete-act {
+    background-color: #ea7575;
+    margin-left: 19px;
+    border-radius: 50%;
+    height: 27px;
+    border: none;
+    margin-bottom: 3px;
+}

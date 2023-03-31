@@ -1,0 +1,48 @@
+﻿@using HealthCare.Data;
+@model HealthCare.Models.ApplicationUser
+@{
+    ViewData["Title"] = "Edit";
+    var coaches = ViewData["coachesList"] as ICollection<ApplicationUser>;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 style="margin-bottom: 45px;text-align: center;">Edit Personal Information</h2>
+<form method="post" action="/users/edit">
+    <label for="height">Height (in cm):</label>
+    <input type="hidden" asp-for="Id" />
+    <input class="form-control" asp-for="Height" required />
+    <span asp-validation-for="Height" class="text-danger"></span>
+
+    <div class="form-group">
+        <label asp-for="Gender">Gender:</label>
+        <select asp-for="Gender" class="form-control">
+            <option value="">-- Select --</option>
+            <option value="@Gender.Male.ToString()" selected="@(Model.Gender == Gender.Male)">Male</option>
+            <option value="@Gender.Female.ToString()" selected="@(Model.Gender == Gender.Female)">Female</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CurrentWeight">Current Weight:</label>
+        <input class="form-control" asp-for="CurrentWeight" required />
+        <span asp-validation-for="CurrentWeight" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TargetWeight">Target Weight:</label>
+        <input class="form-control" asp-for="TargetWeight" required />
+        <span asp-validation-for="TargetWeight" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Coach:</label>
+        <select asp-for="CoachId" class="form-control" asp-for="CoachId">
+            <option value="">-- Select --</option>
+            @foreach (var coach in coaches)
+            {
+                <option value="@coach.Id">-- @coach.UserName --</option>
+            }
+        </select>
+    </div>
+
+    <input type="submit" class="btn-primary" value="Save Changes">
+</form>
